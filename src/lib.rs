@@ -192,7 +192,7 @@ where
 ///     Json(vec!["an", "array"])
 /// }
 /// ```
-pub struct Json<T: Serialize>(T);
+pub struct Json<T: Serialize>(pub T);
 
 impl<T: Serialize> Responder for Json<T> {
     fn into_response(self) -> tide::Result<tide::Response> {
@@ -201,7 +201,7 @@ impl<T: Serialize> Responder for Json<T> {
 }
 
 /// A Wrapper to return Form data. This can be wrapped over any `serde::Serialize` type.
-pub struct Form<T: Serialize>(T);
+pub struct Form<T: Serialize>(pub T);
 
 impl<T: Serialize> Responder for Form<T> {
     fn into_response(self) -> tide::Result<tide::Response> {
