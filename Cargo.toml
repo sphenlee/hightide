@@ -1,0 +1,11 @@
+[package]
+name = "hightide"
+version = "0.1.0"
+authors = ["Steve Lee <sphen.lee@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+tide = "0.13.0"
+futures = "0.3.5"
+async-trait = "0.1.40"
+hyperx = "1.1.0"
