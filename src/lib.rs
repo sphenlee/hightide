@@ -1,4 +1,4 @@
-//! Hightide is a extension to the tide web framework.
+//! Hightide is an extension to the tide web framework.
 //! It provides a higher level interface for building responses
 //!
 //! To use it wrap your endpoint with the `wrap` function. This wrapper allows your endpoints to
