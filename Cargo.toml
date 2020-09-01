@@ -10,8 +10,8 @@ repository = "https://github.com/sphenlee/hightide"
 documentation = "https://docs.rs/hightide"
 readme = "README.md"
 
-keywords = ["cli", "output", "logging"]
-categories = ["command-line-interface"]
+keywords = ["web", "tide", "http"]
+categories = ["web-programming::http-server"]
 
 [dependencies]
 tide = "0.13.0"
