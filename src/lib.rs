@@ -13,7 +13,7 @@ use futures::Future;
 use hyperx::header::Header;
 use std::fmt::Display;
 use tide::convert::Serialize;
-use tide::http::headers::{ToHeaderValues, HeaderName};
+use tide::http::headers::{ToHeaderValues, HeaderName, HeaderValue};
 use tide::{Body, Request, StatusCode};
 
 /// This trait is implemented for all the common types you can return from an endpoint
