@@ -13,7 +13,7 @@ use futures::Future;
 use hyperx::header::Header;
 use std::fmt::Display;
 use tide::convert::Serialize;
-use tide::http::headers::{ToHeaderValues, HeaderName, HeaderValue};
+use tide::http::headers::{HeaderName, HeaderValue, ToHeaderValues};
 use tide::{Body, Request, StatusCode};
 
 /// This trait is implemented for all the common types you can return from an endpoint
@@ -173,14 +173,21 @@ impl Responder for &[u8] {
     }
 }
 
-impl<R> Responder for (StatusCode, R)
-where
-    R: Responder,
-{
+impl<R: Responder> Responder for (StatusCode, R) {
     fn into_response(self) -> tide::Result<tide::Response> {
         let mut resp = self.1.into_response()?;
         resp.set_status(self.0);
         Ok(resp)
+    }
+}
+
+/// Returns `StatusCode::NotFound` for `None`, and the inner value for `Some`
+impl<R: Responder> Responder for Option<R> {
+    fn into_response(self) -> tide::Result<tide::Response> {
+        match self {
+            None => StatusCode::NotFound.into_response(),
+            Some(r) => r.into_response(),
+        }
     }
 }
 
@@ -221,10 +228,7 @@ impl Responder for tide::Response {
     }
 }
 
-impl<R> Responder for tide::Result<R>
-where
-    R: Responder,
-{
+impl<R: Responder> Responder for tide::Result<R> {
     fn into_response(self) -> tide::Result<tide::Response> {
         self.and_then(|r| r.into_response())
     }
